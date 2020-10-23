@@ -63,7 +63,9 @@
                 <td>{{ human.number }}</td>
               </router-link>
               <td>
-                <button class="btn">Удалить</button>
+                <button @click="deleteContact(index)" class="btn">
+                  Удалить
+                </button>
               </td>
             </tr>
           </tbody>
@@ -102,14 +104,15 @@ export default {
           name: this.form.name,
           number: this.form.number,
           id: Date.now(),
+          info: [],
         };
 
         this.$store.dispatch("createContact", human);
       }
     },
-    /* deleteContact(human) {
-      this.$store.commit("deleteContact", human);
-    }, */
+    deleteContact(index) {
+      this.$store.commit("deleteContact", index);
+    },
   },
   computed: {
     people() {

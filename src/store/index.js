@@ -30,9 +30,10 @@ export default new Vuex.Store({
       localStorage.setItem('people', JSON.stringify(state.people))
     },
 
-    /* deleteContact (state, human) {
-      state.people.$remove(human)
-    } */
+    deleteContact (state, index) {
+      state.people.splice(index, 1)
+      localStorage.setItem('people', JSON.stringify(state.people))
+    }
   },
   actions: {
     createContact({commit}, human) {
@@ -41,11 +42,11 @@ export default new Vuex.Store({
 
     addInfoHuman({commit}, human) {
       commit('addInfoHuman', human)
-    }
+    },
 
-    /* deleteContact ({commit}, human) {
+    deleteContact ({commit}, human) {
      commit('deleteContact', human)
-    } */
+    }
   },
   modules: {
   }
