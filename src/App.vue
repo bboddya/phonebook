@@ -1,20 +1,20 @@
 <template>
-  <div id="app">
+  <div id="app" class="">
     <router-view />
   </div>
 </template>
 
-<style lang="scss">
-#nav {
-  padding: 30px;
+<style lang="sass">
+body
+  position: relative
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+#nav
+  padding: 30px
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+  a
+    font-weight: bold
+    color: #2c3e50
+
+    &.router-link-exact-active
+      color: #42b983
 </style>

@@ -73,14 +73,20 @@
         <p v-else>Нет контактов для отображения</p>
       </div>
     </div>
+
+    <ModalDelete />
   </div>
 </template>
 
 <script>
+import ModalDelete from "@/components/ModalDelete.vue";
 import { required, numeric } from "vuelidate/lib/validators";
 
 export default {
   name: "Contacts",
+  components: {
+    ModalDelete,
+  },
   data() {
     return {
       form: {
@@ -110,6 +116,10 @@ export default {
       }
     },
     deleteContact(index) {
+      /* const del = document.querySelector(".overlay");
+      del.style.display = "block";
+
+      if() */
       this.$store.commit("deleteContact", index);
     },
   },
@@ -121,3 +131,61 @@ export default {
 };
 </script>
 
+<style lang="sass" >
+*
+  font-family: 'Roboto', sans-serif
+
+.container
+  width: 1200px
+  margin: 0 auto
+  h1
+    text-align: center
+
+  .wrapper
+    display: flex
+    justify-content: space-between
+
+  .form
+    border: 1px solid #0007e163
+    width: 300px
+    height: 280px
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    justify-content: center
+    border-radius: 15px
+    &_about
+      height: 300px
+
+  input
+    margin-top: 10px
+    display: block
+    height: 25px
+    border-radius: 10px
+    padding-left: 10px
+    border-color:
+    &:focus
+      outline: none
+
+  .btn
+    margin: 10px 0 10px 0
+    height: 30px
+    border-radius: 5px
+    border: none
+    background-color: #0007e163
+    color: #ffffff
+    padding: 16px 15px
+    line-height: 0
+    font-size: 15px
+    &:hover
+      cursor: pointer
+    &:focus
+      outline: none
+    &__delete
+      padding: 0 10px
+
+  .invalid-feedback
+    font-size: 13px
+    color: red
+    position: absolute
+</style>

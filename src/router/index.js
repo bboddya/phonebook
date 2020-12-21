@@ -9,8 +9,8 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Main',
-      component: () => import('../views/Main.vue')
+      name: 'Contacts',
+      component: () => import('../views/Contacts.vue')
     },
     {
       path: '/about/:id',
