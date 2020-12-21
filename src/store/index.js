@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   getters: {
     people: s => s.people,
-    humanById: s => id => s.people.find(h => h.id === id)
+    humanById: s => id => s.people.find(h => h.id === id),
   },
   mutations: {
     createContact(state, human) {
@@ -18,22 +18,33 @@ export default new Vuex.Store({
       localStorage.setItem('people', JSON.stringify(state.people)) // Функция позволяет сохранить данные в localStorage, чтобы не потерерять их при перезагрузки
     },
 
-    addInfoHuman(state, {id ,name, number, title, descr}) {
+    addInfoHuman(state, {id, info, title, descr}) {
       const people = state.people.concat()
 
       const idx = people.findIndex(h => h.id === id)
       const human = people[idx]
+      const newInfo = {
+          title: title,
+          descr: descr,
+      }
+      info.push(newInfo)
 
-      people[idx] = {...human, name, number, title, descr}
-
-      state.people = people
+      people[idx] = {...human, info}
       localStorage.setItem('people', JSON.stringify(state.people))
     },
 
     deleteContact (state, index) {
       state.people.splice(index, 1)
       localStorage.setItem('people', JSON.stringify(state.people))
-    }
+    },
+
+    /* deleteInfo(state, {info, id, index}) {
+      const idx = state.people.findIndex(h => h.id === id)
+      
+      state.people[idx].splice(index, 1)
+
+      localStorage.setItem('people', JSON.stringify(state.people))
+    } */
   },
   actions: {
     createContact({commit}, human) {
@@ -44,9 +55,9 @@ export default new Vuex.Store({
       commit('addInfoHuman', human)
     },
 
-    deleteContact ({commit}, human) {
-     commit('deleteContact', human)
-    }
+    deleteInfo({commit}, human) {
+      commit('deleteInfo', human)
+    },
   },
   modules: {
   }

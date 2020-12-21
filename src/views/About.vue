@@ -92,7 +92,7 @@
           </form>
 
           <div>
-            <table v-if="human.length">
+            <table v-if="human.info.length">
               <thead>
                 <tr>
                   <th>#</th>
@@ -102,24 +102,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(info, index) in human" :key="info + index">
+                <tr v-for="(newInfo, index) in human.info" :key="index">
                   <td>{{ index + 1 }}</td>
                   <td>
                     <input
                       type="text"
                       placeholder="Название"
-                      v-model.trim="updateForm.title"
+                      v-model.trim="newInfo.title"
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       placeholder="Название"
-                      v-model.trim="updateForm.descr"
+                      v-model.trim="newInfo.descr"
                     />
                   </td>
                   <td>
-                    <button class="btn">Удалить</button>
+                    <button @click="deleteInfo(index)" class="btn">
+                      Удалить
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -144,8 +146,8 @@ export default {
       number: null,
     },
     updateForm: {
-      title: [],
-      descr: [],
+      title: null,
+      descr: null,
     },
   }),
   validations: {
@@ -162,22 +164,25 @@ export default {
     human() {
       return this.$store.getters.humanById(+this.$route.params.id); //Для паерехода по ссылке на элемент по id
     },
-    /* people() {
-      return this.$store.getters.people; //Получаем обновленный state из store
-    }, */
   },
   methods: {
     checkForm() {
       this.$v.updateForm.$touch();
       if (!this.$v.updateForm.$error) {
         this.$store.dispatch("addInfoHuman", {
+          info: this.human.info,
           id: this.human.id,
-          name: this.form.name,
-          number: this.form.number,
           title: this.updateForm.title,
           descr: this.updateForm.descr,
         });
       }
+    },
+
+    deleteInfo() {
+      this.$store.dispatch("deleteInfo", {
+        info: this.human.info,
+        id: this.human.id,
+      });
     },
   },
   mounted() {
@@ -223,7 +228,7 @@ export default {
     height: 25px
     border-radius: 10px
     padding-left: 10px
-    border-color:
+    border-color: 
     &:focus
       outline: none
 

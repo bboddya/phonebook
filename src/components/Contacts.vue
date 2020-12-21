@@ -87,7 +87,6 @@ export default {
         name: null,
         number: null,
       },
-      /* allContacts: [], */
     };
   },
   validations: {
